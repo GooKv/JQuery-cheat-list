@@ -71,6 +71,26 @@ $('.nav-item').css({ // передаём объект с названиями с
 
 $('.nav-item.active').css('border-style', 'solid'); // активный сплюснут
 
+// обработчики событий
+
+//Хорошая практика - запоминать результаты запроса, чтобы не повторять его каждый раз без необходимости
+$navItems = $('.nav-item');
+
+//Будем менять активный элемент
+$navItems.on('click', function(event) {
+	$navItems
+		.removeClass('active') // удалим у всех элеменов класс active
+		.css('border-style', 'outset'); // зададим стиль неактивных
+	var text = $(this)
+		.addClass('active') // выделим активный элемент
+		.css('border-style', 'solid') // добавим стиль активного
+		.text(); // вернем текст
+
+	console.log(text); // выведем в консоль текст элемента, на который нажали
+});
+
+
+
 });
 </script>
 </body>
