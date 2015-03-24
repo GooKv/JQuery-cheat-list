@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Test JQuery</title>
+	<script src="http://code.jquery.com/jquery-2.1.3.js"></script>
+</head>
+<body>
+
+<ul id="nav">
+	<li class="nav-item active"></li>
+	<li class="nav-item"></li>
+	<li class="nav-item"></li>
+</ul>
+
+<script>
+$(document).ready(function() {
+
+console.log("Document successfully loaded");
+
+$('#nav'); // получаем навигацию по id
+$('ul#nav'); // аналогично
+$('ul') // получаем все элементы ul на странице
+	.filter('#nav'); // находим среди них (в текущей коллекции) nav
+
+$('.nav-item'); // получаем элементы по имени класса
+$('#nav .nav-item'); // получаем элементы с классом .nav-item внутри #nav любой вложенности
+$('#nav > .nav-item'); // получаем элементы с классом .nav-item внутри #nav непосредственной вложенности
+$('#nav').children(); // children берет элементы, непосредственно вложенные в nav
+
+var titles = ["Главная", "Поиск", "Настройки"]; // Заголовки
+
+$('li.nav-item').each(function(index) { // Параметр index в функции-обработчике не обязателен
+	$(this) // this в функции подменен и указывает на обрабатываемый объект
+			// однако по умолчанию этот объект не обернут в JQuery, вот и обернули
+		.text(titles[index]); // установим соответствующий текст
+});
+
+/*
+	В отличие от обычных переменных, имена переменных, содержащих JQuery-коллекцию,
+	договариваются начинать со знака $ - так код становится читабельнее.
+*/
+var $quitItem = $('<li>') // создадим новый элемент списка
+	.addClass('nav-item') // добавим класс
+	.text('Выход'); // добавим текст
+$('ul#nav').append($quitItem); // добавили элемент в DOM, он будет последним в #nav
+// может понадобиться prepend, он добавляет элемент в начало родительского элемента
+
+$('<a>') // создадим ссылку на наш чит-лист
+	// имя атрибута, затем его значение
+	// в html будет выглядеть <a href="https://github.com/mesdt/course/wiki/Cheat-list-jQuery/"></a>
+	.attr('href', 'https://github.com/mesdt/course/wiki/Cheat-list-jQuery/')
+	.html($('<button>').text('Чит-лист')) // добавим кнопочку с текстом
+	.appendTo($('body')); // поместим в конец body
+
+// Работа со стилями
+$('body').css('font', ' 14px Helvetica, Arial, sans-serif'); // передаём название свойства и значение
+
+$('ul#nav').css('list-style', 'none'); // отключим отображение элементов как списка
+
+$('.nav-item').css({ // передаём объект с названиями свойств и их значениями
+	'cursor' : 'pointer', // поинтер при наведении
+	'display' : 'inline-block', // выстроим их в линию
+	'padding' : '10px', // поля
+	'margin' : '0 3px', // отступы по сторонам
+	'color' : '#fff', // цвет текста
+	'background' : '#b9c6f2', // цвет фона
+	'border-radius' : '6px', // закругления, куда же без них!
+	'border' : '2px outset #b9c6f2' // элементы выпирают как кнопки
+});
+
+$('.nav-item.active').css('border-style', 'solid'); // активный сплюснут
+
+});
+</script>
+</body>
+</html>
